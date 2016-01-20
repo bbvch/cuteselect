@@ -1,5 +1,5 @@
-#include <ApplicationFactory.h>
 #include <ConfigurationLoaderImplementation.h>
+#include <Configuration.h>
 
 
 #include <QApplication>
@@ -42,13 +42,13 @@ int main(int argc, char *argv[])
       return -1;
     }
 
-    ConfigurationLoaderImplementation configLoader;
-    ApplicationFactory factory{configLoader};
-    const auto main = factory.produce(&configFile);
+    Configuration main;
+    ConfigurationLoaderImplementation configLoader{main};
+    configLoader.load(&configFile);
 
     QQmlApplicationEngine engine;
 
-    engine.rootContext()->setContextProperty("configuration", main.data());
+    engine.rootContext()->setContextProperty("configuration", &main);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

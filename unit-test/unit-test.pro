@@ -7,6 +7,7 @@
 QT       += core
 
 QT       -= gui
+QT += testlib
 
 CONFIG   += console
 CONFIG   -= app_bundle
@@ -23,10 +24,9 @@ LIBS += -lgmock_main
 LIBS += -lgmock -lpthread
 
 SOURCES += \
-    ApplicationFactory_Test.cpp \
-    ApplicationImplementation_Test.cpp \
-    ConfigurationLoaderImplementation_Test.cpp
+    ConfigurationLoaderImplementation_Test.cpp \
+    Configuration_Test.cpp
 
 HEADERS += \
-    Configuration_Mock.h \
-    ConfigurationLoader_Mock.h
+    ConfigurationLoader_Mock.h \
+    ConfigurationListener_Mock.h

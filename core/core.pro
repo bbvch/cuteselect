@@ -12,17 +12,15 @@ TEMPLATE = lib
 CONFIG += staticlib
 CONFIG   += c++11
 
-SOURCES += Application.cpp \
-    ApplicationFactory.cpp \
-    ApplicationImplementation.cpp \
-    ConfigurationLoaderImplementation.cpp
+SOURCES += \
+    ConfigurationLoaderImplementation.cpp \
+    Configuration.cpp
 
-HEADERS += Application.h \
-    Configuration.h \
-    ApplicationFactory.h \
-    ApplicationImplementation.h \
+HEADERS += \
     ConfigurationLoaderImplementation.h \
-    ConfigurationLoader.h
+    ConfigurationLoader.h \
+    ConfigurationListener.h \
+    Configuration.h
 
 unix {
     target.path = /usr/lib

@@ -1,7 +1,7 @@
 #ifndef CONTEXT_H
 #define CONTEXT_H
 
-#include <Application.h>
+#include <Configuration.h>
 
 #include <QSharedPointer>
 #include <QBuffer>
@@ -10,7 +10,7 @@ class Context
 {
 public:
   QBuffer configurationFileContent;
-  QSharedPointer<Application> application;
+  Configuration application;
 };
 
 #endif // CONTEXT_H

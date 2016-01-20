@@ -1,3 +1,5 @@
+#include <ConfigurationListener_Mock.h>
+
 #include <ConfigurationLoaderImplementation.h>
 
 #include <gtest/gtest.h>
@@ -15,7 +17,9 @@ class ConfigurationLoaderImplementation_Test :
 public:
   QBuffer data{};
 
-  ConfigurationLoaderImplementation testee;
+  testing::StrictMock<ConfigurationListener_Mock> listener;
+
+  ConfigurationLoaderImplementation testee{listener};
 
 };
 
@@ -28,18 +32,27 @@ TEST_F(ConfigurationLoaderImplementation_Test, load_the_background_color)
 {
   data.setData("<cuteselect background-color=\"#041233\" />");
 
-  const auto configuration = testee.load(&data);
+  EXPECT_CALL(listener, setBackgroundColor(QString{"#041233"})).Times(1);
 
-  ASSERT_EQ("#041233", configuration->backgroundColor());
+  testee.load(&data);
 }
 
-TEST_F(ConfigurationLoaderImplementation_Test, the_default_background_color_is_black)
+TEST_F(ConfigurationLoaderImplementation_Test, does_not_set_the_background_color_if_not_specified)
 {
   data.setData("<cuteselect />");
 
-  const auto configuration = testee.load(&data);
+  EXPECT_CALL(listener, setBackgroundColor(testing::_)).Times(0);
 
-  ASSERT_EQ("#000000", configuration->backgroundColor());
+  testee.load(&data);
 }
+
+//TEST_F(ConfigurationLoaderImplementation_Test, load_one_items_to_show)
+//{
+//  data.setData("<cuteselect><image id=\"first\" file=\"file1\" /></cuteselect>");
+
+//  const auto configuration = testee.load(&data);
+
+//  ASSERT_EQ("#000000", configuration->());
+//}
 
 }

@@ -2,7 +2,7 @@
 #define CONFIGURATIONLOADERIMPLEMENTATION_H
 
 #include "ConfigurationLoader.h"
-#include "Configuration.h"
+#include "ConfigurationListener.h"
 
 #include <QIODevice>
 #include <QSharedPointer>
@@ -11,7 +11,12 @@ class ConfigurationLoaderImplementation :
     public ConfigurationLoader
 {
 public:
-  QSharedPointer<Configuration> load(QIODevice *data) const override;
+  ConfigurationLoaderImplementation(ConfigurationListener &listener);
+
+  void load(QIODevice *data) const override;
+
+private:
+  ConfigurationListener &listener;
 
 };
 

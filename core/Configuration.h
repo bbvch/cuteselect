@@ -1,15 +1,27 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-#include <QString>
+#include "ConfigurationListener.h"
 
-class Configuration
+#include <QStringListModel>
+
+class Configuration :
+    public QStringListModel,
+    public ConfigurationListener
 {
-public:
-  virtual ~Configuration() = default;
+  Q_OBJECT
 
-  virtual QString backgroundColor() const = 0;
+  Q_PROPERTY(QString backgroundColor MEMBER backgroundColor NOTIFY backgroundColorChanged)
+
+public:
+  void setBackgroundColor(QString value) override;
+
+signals:
+  void backgroundColorChanged();
+
+private:
+  QString backgroundColor{"#000000"};
 
 };
 
-#endif // CONFIGURATION_H
+#endif
