@@ -15,6 +15,7 @@ class Configuration :
 
 public:
   void setBackgroundColor(QString value) override;
+  void addImage(QString filename) override;
 
 signals:
   void backgroundColorChanged();

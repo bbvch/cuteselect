@@ -40,4 +40,12 @@ TEST_F(Configuration_Test, can_change_the_background_color)
   ASSERT_EQ(1, backgroundSpy.count());
 }
 
+TEST_F(Configuration_Test, add_a_image_to_the_items)
+{
+  testee.addImage("the image path");
+
+  ASSERT_EQ(1, testee.rowCount());
+  ASSERT_EQ("the image path", testee.stringList().at(0));
+}
+
 }

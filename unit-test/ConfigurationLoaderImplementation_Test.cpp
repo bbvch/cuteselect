@@ -46,13 +46,13 @@ TEST_F(ConfigurationLoaderImplementation_Test, does_not_set_the_background_color
   testee.load(&data);
 }
 
-//TEST_F(ConfigurationLoaderImplementation_Test, load_one_items_to_show)
-//{
-//  data.setData("<cuteselect><image id=\"first\" file=\"file1\" /></cuteselect>");
+TEST_F(ConfigurationLoaderImplementation_Test, load_one_items_to_show)
+{
+  data.setData("<cuteselect><image id=\"first\" file=\"file1\" /></cuteselect>");
 
-//  const auto configuration = testee.load(&data);
+  EXPECT_CALL(listener, addImage(QString{"file1"})).Times(1);
 
-//  ASSERT_EQ("#000000", configuration->());
-//}
+  testee.load(&data);
+}
 
 }

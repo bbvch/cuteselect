@@ -21,6 +21,8 @@ public:
       readAttribute(atts, "background-color", [this](QString value){
         listener.setBackgroundColor(value);
       });
+    } else if (localName == "image") {
+      listener.addImage(atts.value("file"));
     }
     return true;
   }
