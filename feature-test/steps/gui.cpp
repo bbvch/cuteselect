@@ -8,15 +8,16 @@
 namespace
 {
 
-THEN("^I expect the background color to be \"([^\"]*)\"$")
+THEN("^I expect the property (.+) to be \"([^\"]*)\"$")
 {
-  REGEX_PARAM(std::string, color);
+  REGEX_PARAM(std::string, name);
+  REGEX_PARAM(std::string, value);
 
   cucumber::ScenarioScope<Context> context;
-  const auto backgroundColor = context->configuration.property("backgroundColor");
-  ASSERT_TRUE(backgroundColor.isValid());
+  const auto property = context->configuration.property(name.c_str());
+  ASSERT_TRUE(property.isValid());
 
-  ASSERT_EQ(color, backgroundColor.toString().toStdString());
+  ASSERT_EQ(value, property.toString().toStdString());
 }
 
 THEN("^I expect to see the following images in this order on the screen:$")

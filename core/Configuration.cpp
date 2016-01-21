@@ -6,6 +6,18 @@ void Configuration::setBackgroundColor(QString value)
   backgroundColorChanged();
 }
 
+void Configuration::setRelativeWidth(double value)
+{
+  relativeWidth = value;
+  relativeWidthChanged();
+}
+
+void Configuration::setRelativeHeight(double value)
+{
+  relativeHeight = value;
+  relativeHeightChanged();
+}
+
 void Configuration::addImage(QString filename)
 {
   const auto newRow = rowCount();

@@ -2,6 +2,7 @@
 
 #include <QXmlSimpleReader>
 #include <QXmlDefaultHandler>
+#include <QMap>
 
 #include <stdexcept>
 #include <functional>
@@ -18,9 +19,15 @@ public:
   bool startElement(const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& atts) override
   {
     if (localName == "cuteselect") {
-      readAttribute(atts, "background-color", [this](QString value){
-        listener.setBackgroundColor(value);
-      });
+      QMap<QString,std::function<void(QString)>> attributeWriter;
+      attributeWriter["background-color"] = [this](QString value){ listener.setBackgroundColor(value); };
+      attributeWriter["relative-width"] = [this](QString value){ listener.setRelativeWidth(value.toDouble()); };
+      attributeWriter["relative-height"] = [this](QString value){ listener.setRelativeHeight(value.toDouble()); };
+
+      for (int i = 0; i < atts.count(); i++) {
+        const auto writer = attributeWriter.value(atts.localName(i), [](QString){});
+        writer(atts.value(i));
+      }
     } else if (localName == "image") {
       listener.addImage(atts.value("file"));
     }
@@ -29,14 +36,6 @@ public:
 
 private:
   ConfigurationListener &listener;
-
-  void readAttribute(const QXmlAttributes& atts, QString name, std::function<void(QString)> writer)
-  {
-    const auto index = atts.index(name);
-    if (index != -1) {
-      writer(atts.value(name));
-    }
-  }
 
 };
 

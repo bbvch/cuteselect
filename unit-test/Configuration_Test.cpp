@@ -15,10 +15,14 @@ public:
   void SetUp() override
   {
     ASSERT_TRUE(backgroundSpy.isValid());
+    ASSERT_TRUE(widthSpy.isValid());
+    ASSERT_TRUE(heightSpy.isValid());
   }
 
   Configuration testee{};
   QSignalSpy backgroundSpy{&testee, SIGNAL(backgroundColorChanged())};
+  QSignalSpy widthSpy{&testee, SIGNAL(relativeWidthChanged())};
+  QSignalSpy heightSpy{&testee, SIGNAL(relativeHeightChanged())};
 
 };
 
@@ -47,6 +51,34 @@ TEST_F(Configuration_Test, add_a_image_to_the_items)
   ASSERT_EQ(1, testee.rowCount());
   ASSERT_EQ("the image path", testee.stringList().at(0));
 }
+
+TEST_F(Configuration_Test, the_default_width_is_defined)
+{
+  ASSERT_DOUBLE_EQ(0.25, testee.property("relativeWidth").toDouble());
+}
+
+TEST_F(Configuration_Test, can_write_the_width)
+{
+  testee.setRelativeWidth(0.312);
+
+  ASSERT_DOUBLE_EQ(0.312, testee.property("relativeWidth").toDouble());
+  ASSERT_EQ(1, widthSpy.count());
+}
+
+TEST_F(Configuration_Test, the_default_height_is_defined)
+{
+  ASSERT_DOUBLE_EQ(0.5, testee.property("relativeHeight").toDouble());
+}
+
+TEST_F(Configuration_Test, can_write_the_height)
+{
+  testee.setRelativeHeight(0.6132);
+
+  ASSERT_DOUBLE_EQ(0.6132, testee.property("relativeHeight").toDouble());
+  ASSERT_EQ(1, heightSpy.count());
+}
+
+
 
 TEST_F(Configuration_Test, quit_when_an_activate_is_received)
 {

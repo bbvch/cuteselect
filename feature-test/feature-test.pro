@@ -29,8 +29,8 @@ SOURCES += \
     steps/gui.cpp
 
 OTHER_FILES += \
-    features/background.feature \
-    features/items.feature
+    features/items.feature \
+    features/configuration.feature
 
 HEADERS += \
     helper/Context.h

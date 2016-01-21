@@ -9,6 +9,8 @@ public:
   virtual ~ConfigurationListener() = default;
 
   virtual void setBackgroundColor(QString value) = 0;
+  virtual void setRelativeWidth(double value) = 0;
+  virtual void setRelativeHeight(double value) = 0;
   virtual void addImage(QString filename) = 0;
 
 };
