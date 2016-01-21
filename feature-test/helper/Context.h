@@ -5,12 +5,14 @@
 
 #include <QSharedPointer>
 #include <QBuffer>
+#include <QtTest/QSignalSpy>
 
 class Context
 {
 public:
   QBuffer configurationFileContent;
-  Configuration application;
+  Configuration configuration;
+  QSignalSpy quitSpy{&configuration, SIGNAL(quit(QString))};
 };
 
 #endif // CONTEXT_H

@@ -23,3 +23,17 @@ Scenario: List items on the screen
     | file2    |
     | file3    |
 
+Scenario: Select an item on the screen
+  Given I have the following configuration file:
+    """
+    <cuteselect>
+      <image file="file1" />
+      <image file="file2" />
+      <image file="file3" />
+    </cuteselect>
+    """
+  And I start the application
+
+  When I activate the item "file2" on the gui
+
+  Then I expect the application to quit with "file2" followed by a newline

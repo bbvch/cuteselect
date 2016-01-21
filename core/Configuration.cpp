@@ -12,3 +12,8 @@ void Configuration::addImage(QString filename)
   insertRow(newRow);
   setData(index(newRow), filename);
 }
+
+void Configuration::activate(QString id)
+{
+  quit(id + "\n");
+}

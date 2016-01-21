@@ -17,8 +17,12 @@ public:
   void setBackgroundColor(QString value) override;
   void addImage(QString filename) override;
 
+public slots:
+  void activate(QString id);
+
 signals:
   void backgroundColorChanged();
+  void quit(QString message);
 
 private:
   QString backgroundColor{"#000000"};

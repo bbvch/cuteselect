@@ -13,6 +13,7 @@ CONFIG   -= app_bundle
 
 QT       += core
 QT       -= gui
+QT += testlib
 
 
 TARGET = feature-test

@@ -48,4 +48,17 @@ TEST_F(Configuration_Test, add_a_image_to_the_items)
   ASSERT_EQ("the image path", testee.stringList().at(0));
 }
 
+TEST_F(Configuration_Test, quit_when_an_activate_is_received)
+{
+  QSignalSpy spy{&testee, SIGNAL(quit(QString))};
+
+  testee.activate("lala");
+
+  ASSERT_TRUE(spy.isValid());
+  ASSERT_EQ(1, spy.count());
+  const auto args = spy[0];
+  ASSERT_EQ(1, args.count());
+  ASSERT_EQ("lala\n", args[0].toString().toStdString());
+}
+
 }
