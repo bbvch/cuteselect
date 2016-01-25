@@ -1,4 +1,5 @@
-#include <ConfigurationListener_Mock.h>
+#include "ConfigurationListener_Mock.h"
+#include "FilePathResolver_Mock.h"
 
 #include <ConfigurationLoaderImplementation.h>
 
@@ -17,10 +18,10 @@ class ConfigurationLoaderImplementation_Test :
 public:
   QBuffer data{};
 
+  testing::NiceMock<FilePathResolver_Mock> pathResolver;
   testing::StrictMock<ConfigurationListener_Mock> listener;
 
-  ConfigurationLoaderImplementation testee{listener};
-
+  ConfigurationLoaderImplementation testee{listener, pathResolver};
 };
 
 TEST_F(ConfigurationLoaderImplementation_Test, load_an_empty_configuration_is_invalid)
@@ -82,11 +83,12 @@ TEST_F(ConfigurationLoaderImplementation_Test, load_the_height)
   testee.load(&data);
 }
 
-TEST_F(ConfigurationLoaderImplementation_Test, load_one_items_to_show)
+TEST_F(ConfigurationLoaderImplementation_Test, loads_the_images)
 {
   data.setData("<cuteselect><image id=\"first\" file=\"file1\" /></cuteselect>");
 
-  EXPECT_CALL(listener, addImage(QString{"file1"})).Times(1);
+  EXPECT_CALL(pathResolver, resolve(QString{"file1"})).WillOnce(testing::Return(QString{"file2"}));
+  EXPECT_CALL(listener, addImage(QString{"file2"})).Times(1);
 
   testee.load(&data);
 }

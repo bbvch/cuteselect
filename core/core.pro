@@ -14,13 +14,16 @@ CONFIG   += c++11
 
 SOURCES += \
     ConfigurationLoaderImplementation.cpp \
-    Configuration.cpp
+    Configuration.cpp \
+    FilePathResolverImplementation.cpp
 
 HEADERS += \
     ConfigurationLoaderImplementation.h \
     ConfigurationLoader.h \
     ConfigurationListener.h \
-    Configuration.h
+    Configuration.h \
+    FilePathResolverImplementation.h \
+    FilePathResolver.h
 
 unix {
     target.path = /usr/lib

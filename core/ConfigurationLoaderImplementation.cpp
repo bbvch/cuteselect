@@ -11,8 +11,9 @@ class Handler :
     public QXmlDefaultHandler
 {
 public:
-  Handler(ConfigurationListener &aListener) :
-    listener{aListener}
+  Handler(ConfigurationListener &aListener, const FilePathResolver &aPathResolver) :
+    listener{aListener},
+    pathResolver{aPathResolver}
   {
   }
 
@@ -29,20 +30,24 @@ public:
         writer(atts.value(i));
       }
     } else if (localName == "image") {
-      listener.addImage(atts.value("file"));
+      const auto value = atts.value("file");
+      const auto path = pathResolver.resolve(value);
+      listener.addImage(path);
     }
     return true;
   }
 
 private:
   ConfigurationListener &listener;
+  const FilePathResolver &pathResolver;
 
 };
 
 
 
-ConfigurationLoaderImplementation::ConfigurationLoaderImplementation(ConfigurationListener &aListener) :
-  listener{aListener}
+ConfigurationLoaderImplementation::ConfigurationLoaderImplementation(ConfigurationListener &aListener, const FilePathResolver &aPathResolver) :
+  listener{aListener},
+  pathResolver{aPathResolver}
 {
 }
 
@@ -51,7 +56,7 @@ void ConfigurationLoaderImplementation::load(QIODevice *data) const
   QXmlInputSource source{data};
 
   QXmlSimpleReader reader;
-  Handler handler{listener};
+  Handler handler{listener, pathResolver};
   reader.setContentHandler(&handler);
 
   if (!reader.parse(source)) {

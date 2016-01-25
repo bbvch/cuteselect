@@ -1,4 +1,5 @@
 #include <ConfigurationLoaderImplementation.h>
+#include <FilePathResolverImplementation.h>
 #include <Configuration.h>
 
 
@@ -43,7 +44,9 @@ int main(int argc, char *argv[])
     }
 
     Configuration main;
-    ConfigurationLoaderImplementation configLoader{main};
+    FilePathResolverImplementation pathResolver;
+    pathResolver.setBase(QFileInfo(configFilename).absolutePath());
+    ConfigurationLoaderImplementation configLoader{main, pathResolver};
     configLoader.load(&configFile);
 
     QQmlApplicationEngine engine;

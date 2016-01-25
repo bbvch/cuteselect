@@ -14,4 +14,9 @@ RESOURCES += qml.qrc
 QML_IMPORT_PATH =
 
 OTHER_FILES += \
-    data/cuteselect.config
+    data/cuteselect.config \
+    data/Anonymous-Whale.svg \
+    data/diamond-shape.svg \
+    data/Girl-At-The-Beach.svg \
+    data/Honey-in-the-can.svg \
+    data/lightbulb.svg

@@ -11,6 +11,7 @@ class Context
 {
 public:
   QBuffer configurationFileContent;
+  QString configurationFilePath{""};
   Configuration configuration;
   QSignalSpy quitSpy{&configuration, SIGNAL(quit(QString))};
 };

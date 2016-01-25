@@ -1,6 +1,7 @@
 #include "helper/Context.h"
 
 #include <ConfigurationLoaderImplementation.h>
+#include <FilePathResolverImplementation.h>
 
 #include <gtest/gtest.h>
 #include <cucumber-cpp/defs.hpp>
@@ -13,7 +14,9 @@ WHEN("^I start the application$")
   cucumber::ScenarioScope<Context> context;
 
   //TODO move that to common part
-  ConfigurationLoaderImplementation loader{context->configuration};
+  FilePathResolverImplementation pathResolver;
+  pathResolver.setBase(context->configurationFilePath);
+  ConfigurationLoaderImplementation loader{context->configuration, pathResolver};
   loader.load(&context->configurationFileContent);
 }
 
