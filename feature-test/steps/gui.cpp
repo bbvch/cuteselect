@@ -35,12 +35,12 @@ THEN("^I expect to see the following images in this order on the screen:$")
   ASSERT_EQ(images, context->configuration.stringList());
 }
 
-WHEN("^I activate the item \"([^\"]*)\" on the gui$")
+WHEN("^I activate the item with the index (\\d+) on the gui$")
 {
-  REGEX_PARAM(std::string, id);
+  REGEX_PARAM(unsigned, index);
 
   cucumber::ScenarioScope<Context> context;
-  context->configuration.activate(QString::fromStdString(id));
+  context->configuration.activate(index);
 }
 
 }

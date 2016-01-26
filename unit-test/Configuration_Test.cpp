@@ -17,12 +17,14 @@ public:
     ASSERT_TRUE(backgroundSpy.isValid());
     ASSERT_TRUE(widthSpy.isValid());
     ASSERT_TRUE(heightSpy.isValid());
+    ASSERT_TRUE(quitSpy.isValid());
   }
 
   Configuration testee{};
   QSignalSpy backgroundSpy{&testee, SIGNAL(backgroundColorChanged())};
   QSignalSpy widthSpy{&testee, SIGNAL(relativeWidthChanged())};
   QSignalSpy heightSpy{&testee, SIGNAL(relativeHeightChanged())};
+  QSignalSpy quitSpy{&testee, SIGNAL(quit(QString))};
 
 };
 
@@ -78,19 +80,26 @@ TEST_F(Configuration_Test, can_write_the_height)
   ASSERT_EQ(1, heightSpy.count());
 }
 
-
-
 TEST_F(Configuration_Test, quit_when_an_activate_is_received)
 {
-  QSignalSpy spy{&testee, SIGNAL(quit(QString))};
+  testee.addImage("image1");
+  testee.addImage("image2");
+  testee.addImage("image3");
 
-  testee.activate("lala");
+  testee.activate(1);
 
-  ASSERT_TRUE(spy.isValid());
-  ASSERT_EQ(1, spy.count());
-  const auto args = spy[0];
+  ASSERT_EQ(1, quitSpy.count());
+  const auto args = quitSpy[0];
   ASSERT_EQ(1, args.count());
-  ASSERT_EQ("lala\n", args[0].toString().toStdString());
+  ASSERT_EQ("image2", args[0].toString().toStdString());
+}
+
+TEST_F(Configuration_Test, does_nothing_when_index_of_activate_is_invalid)
+{
+  testee.activate(-1);
+  testee.activate(1);
+
+  ASSERT_EQ(0, quitSpy.count());
 }
 
 }

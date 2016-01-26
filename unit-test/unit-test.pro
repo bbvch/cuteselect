@@ -26,7 +26,8 @@ LIBS += -lgmock -lpthread
 SOURCES += \
     ConfigurationLoaderImplementation_Test.cpp \
     Configuration_Test.cpp \
-    FilePathResolver_Test.cpp
+    FilePathResolver_Test.cpp \
+    IostreamPrinter_test.cpp
 
 HEADERS += \
     ConfigurationLoader_Mock.h \

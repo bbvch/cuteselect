@@ -35,9 +35,9 @@ Scenario: Select an item on the screen
     """
   And I start the application
 
-  When I activate the item "file2" on the gui
+  When I activate the item with the index 1 on the gui
 
-  Then I expect the application to quit with "file2" followed by a newline
+  Then I expect the application to quit with "/file2"
 
 Scenario: The files are relative to the configuration file
   Given I have the following configuration file:

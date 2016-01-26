@@ -15,7 +15,8 @@ CONFIG   += c++11
 SOURCES += \
     ConfigurationLoaderImplementation.cpp \
     Configuration.cpp \
-    FilePathResolverImplementation.cpp
+    FilePathResolverImplementation.cpp \
+    IostreamPrinter.cpp
 
 HEADERS += \
     ConfigurationLoaderImplementation.h \
@@ -23,7 +24,8 @@ HEADERS += \
     ConfigurationListener.h \
     Configuration.h \
     FilePathResolverImplementation.h \
-    FilePathResolver.h
+    FilePathResolver.h \
+    IostreamPrinter.h
 
 unix {
     target.path = /usr/lib

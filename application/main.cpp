@@ -1,6 +1,7 @@
 #include <ConfigurationLoaderImplementation.h>
 #include <FilePathResolverImplementation.h>
 #include <Configuration.h>
+#include <IostreamPrinter.h>
 
 
 #include <QApplication>
@@ -47,6 +48,11 @@ int main(int argc, char *argv[])
     FilePathResolverImplementation pathResolver;
     pathResolver.setBase(QFileInfo(configFilename).absolutePath());
     ConfigurationLoaderImplementation configLoader{main, pathResolver};
+
+    IostreamPrinter printer{std::cout};
+    QObject::connect(&main, SIGNAL(quit(QString)), &printer, SLOT(print(QString)));
+    QObject::connect(&main, SIGNAL(quit(QString)), &app, SLOT(quit()));
+
     configLoader.load(&configFile);
 
     QQmlApplicationEngine engine;

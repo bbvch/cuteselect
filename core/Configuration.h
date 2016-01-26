@@ -22,7 +22,7 @@ public:
   void addImage(QString filename) override;
 
 public slots:
-  void activate(QString id);
+  void activate(int index);
 
 signals:
   void backgroundColorChanged();

@@ -20,10 +20,9 @@ WHEN("^I start the application$")
   loader.load(&context->configurationFileContent);
 }
 
-THEN("^I expect the application to quit with \"([^\"]*)\" followed by a newline$")
+THEN("^I expect the application to quit with \"([^\"]*)\"$")
 {
-  REGEX_PARAM(std::string, message_prefix);
-  const auto message = message_prefix + "\n";
+  REGEX_PARAM(std::string, message);
 
   cucumber::ScenarioScope<Context> context;
   ASSERT_TRUE(context->quitSpy.isValid());

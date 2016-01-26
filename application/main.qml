@@ -18,16 +18,27 @@ ApplicationWindow {
 
         model: configuration
 
-        delegate: Component {
+        delegate: gridDelegate
+    }
+
+    Component {
+        id: gridDelegate
+        Item {
+            width: grid.cellWidth
+            height: grid.cellHeight
             Image {
-                width: grid.cellWidth
-                height: grid.cellHeight
+                anchors.fill: parent
                 sourceSize.width: width
                 sourceSize.height: height
                 fillMode: Image.PreserveAspectFit
 
                 source: "file://" + model.display
             }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: configuration.activate(index)
+            }
         }
     }
 }
+

@@ -25,7 +25,10 @@ void Configuration::addImage(QString filename)
   setData(index(newRow), filename);
 }
 
-void Configuration::activate(QString id)
+void Configuration::activate(int index)
 {
-  quit(id + "\n");
+  const QModelIndex model = this->index(index);
+  if (model.isValid()) {
+    quit(model.data().toString());
+  }
 }
