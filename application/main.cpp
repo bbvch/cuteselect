@@ -2,9 +2,10 @@
 #include <FilePathResolverImplementation.h>
 #include <Configuration.h>
 #include <IostreamPrinter.h>
+#include <ItemListImplementation.h>
 
 
-#include <QApplication>
+#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QCommandLineParser>
 #include <QQmlContext>
@@ -34,7 +35,8 @@ static QString getConfigFilename(const QStringList &arguments)
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+
+    QGuiApplication app(argc, argv);
     app.setApplicationName("cuteselect");
 
     const auto configFilename = getConfigFilename(app.arguments());
@@ -44,7 +46,7 @@ int main(int argc, char *argv[])
       return -1;
     }
 
-    Configuration main;
+    Configuration main{new ItemListImplementation()};
     FilePathResolverImplementation pathResolver;
     pathResolver.setBase(QFileInfo(configFilename).absolutePath());
     ConfigurationLoaderImplementation configLoader{main, pathResolver};
@@ -55,10 +57,9 @@ int main(int argc, char *argv[])
 
     configLoader.load(&configFile);
 
+
     QQmlApplicationEngine engine;
-
     engine.rootContext()->setContextProperty("configuration", &main);
-
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
 

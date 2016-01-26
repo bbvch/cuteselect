@@ -1,6 +1,9 @@
 #include <Configuration.h>
 
+#include "ItemList_Mock.h"
+
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <QVariant>
 #include <QtTest/QSignalSpy>
@@ -20,7 +23,9 @@ public:
     ASSERT_TRUE(quitSpy.isValid());
   }
 
-  Configuration testee{};
+
+  testing::StrictMock<ItemList_Mock> *items = new testing::StrictMock<ItemList_Mock>();
+  Configuration testee{items};
   QSignalSpy backgroundSpy{&testee, SIGNAL(backgroundColorChanged())};
   QSignalSpy widthSpy{&testee, SIGNAL(relativeWidthChanged())};
   QSignalSpy heightSpy{&testee, SIGNAL(relativeHeightChanged())};
@@ -48,10 +53,9 @@ TEST_F(Configuration_Test, can_change_the_background_color)
 
 TEST_F(Configuration_Test, add_a_image_to_the_items)
 {
-  testee.addImage("the image path");
+  EXPECT_CALL(*items, append(QString{"the image path"}));
 
-  ASSERT_EQ(1, testee.rowCount());
-  ASSERT_EQ("the image path", testee.stringList().at(0));
+  testee.addImage("the image path");
 }
 
 TEST_F(Configuration_Test, the_default_width_is_defined)
@@ -82,20 +86,24 @@ TEST_F(Configuration_Test, can_write_the_height)
 
 TEST_F(Configuration_Test, quit_when_an_activate_is_received)
 {
-  testee.addImage("image1");
-  testee.addImage("image2");
-  testee.addImage("image3");
+  EXPECT_CALL(*items, data(5, ItemList::PathRole))
+      .WillOnce(testing::Return(QVariant{"the path"}));
 
-  testee.activate(1);
+  testee.activate(5);
 
   ASSERT_EQ(1, quitSpy.count());
   const auto args = quitSpy[0];
   ASSERT_EQ(1, args.count());
-  ASSERT_EQ("image2", args[0].toString().toStdString());
+  ASSERT_EQ("the path", args[0].toString().toStdString());
 }
 
 TEST_F(Configuration_Test, does_nothing_when_index_of_activate_is_invalid)
 {
+  EXPECT_CALL(*items, data(-1, ItemList::PathRole))
+      .WillOnce(testing::Return(QVariant{}));
+  EXPECT_CALL(*items, data(1, ItemList::PathRole))
+      .WillOnce(testing::Return(QVariant{}));
+
   testee.activate(-1);
   testee.activate(1);
 

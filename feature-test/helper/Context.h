@@ -2,6 +2,7 @@
 #define CONTEXT_H
 
 #include <Configuration.h>
+#include <ItemListImplementation.h>
 
 #include <QSharedPointer>
 #include <QBuffer>
@@ -12,7 +13,7 @@ class Context
 public:
   QBuffer configurationFileContent;
   QString configurationFilePath{""};
-  Configuration configuration;
+  Configuration configuration{new ItemListImplementation()};
   QSignalSpy quitSpy{&configuration, SIGNAL(quit(QString))};
 };
 

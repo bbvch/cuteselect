@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick widgets
+QT += qml quick
 CONFIG += c++11
 
 include(../core/core.pri)

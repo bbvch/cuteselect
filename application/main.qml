@@ -16,7 +16,7 @@ ApplicationWindow {
         cellWidth: root.width * configuration.relativeWidth
         cellHeight: root.height * configuration.relativeHeight
 
-        model: configuration
+        model: configuration.items
 
         delegate: gridDelegate
     }
@@ -32,7 +32,7 @@ ApplicationWindow {
                 sourceSize.height: height
                 fillMode: Image.PreserveAspectFit
 
-                source: "file://" + model.display
+                source: "file://" + model.path
             }
             MouseArea {
                 anchors.fill: parent

@@ -1,5 +1,7 @@
 #include "helper/Context.h"
 
+#include <ItemList.h>
+
 #include <gtest/gtest.h>
 #include <cucumber-cpp/defs.hpp>
 
@@ -25,14 +27,25 @@ THEN("^I expect to see the following images in this order on the screen:$")
   TABLE_PARAM(imageListTable);
   const table_hashes_type& imageList = imageListTable.hashes();
 
-  QStringList images;
-  for(const auto & entry : imageList) {
+  std::vector<std::string> expected;
+  for (const auto & entry : imageList) {
     const auto filename = entry.at("filename");
-    images.append(QString::fromStdString(filename));
+    expected.push_back(filename);
   }
 
+  std::vector<std::string> available;
   cucumber::ScenarioScope<Context> context;
-  ASSERT_EQ(images, context->configuration.stringList());
+  QVariant items = context->configuration.property("items");
+  ASSERT_TRUE(items.isValid());
+  ItemList *model = items.value<ItemList*>();
+  ASSERT_NE(nullptr, model);
+  for (int idx = 0; idx < model->rowCount(); idx++) {
+    const auto index = model->index(idx);
+    const auto path = index.data(ItemList::PathRole);
+    available.push_back(path.toString().toStdString());
+  }
+
+  ASSERT_EQ(expected, available);
 }
 
 WHEN("^I activate the item with the index (\\d+) on the gui$")

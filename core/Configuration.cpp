@@ -1,5 +1,16 @@
 #include "Configuration.h"
 
+Configuration::Configuration(ItemList *aItems) :
+  items{aItems}
+{
+  qRegisterMetaType<ItemList*>("ItemList*");
+}
+
+Configuration::~Configuration()
+{
+  delete items;
+}
+
 void Configuration::setBackgroundColor(QString value)
 {
   backgroundColor = value;
@@ -20,15 +31,13 @@ void Configuration::setRelativeHeight(double value)
 
 void Configuration::addImage(QString filename)
 {
-  const auto newRow = rowCount();
-  insertRow(newRow);
-  setData(index(newRow), filename);
+  items->append(filename);
 }
 
 void Configuration::activate(int index)
 {
-  const QModelIndex model = this->index(index);
-  if (model.isValid()) {
-    quit(model.data().toString());
+  const auto value = items->data(index, ItemList::PathRole);
+  if (value.isValid()) {
+    quit(value.toString());
   }
 }
