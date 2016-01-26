@@ -9,7 +9,7 @@ class ItemListImplementation :
     public ItemList
 {
 public:
-  void append(QString path);
+  void append(QString path, QString value) override;
 
   int rowCount(const QModelIndex & parent = QModelIndex()) const override;
   QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const override;
@@ -24,15 +24,19 @@ private:
   class Item
   {
   public:
-    Item(QString aPath) :
-      path{aPath}
+    Item(QString aPath, QString aValue) :
+      path{aPath},
+      value{aValue}
     {
     }
 
     const QString path;
+    const QString value;
   };
 
   std::vector<Item> items;
+
+  bool validIndex(int index) const;
 
 };
 

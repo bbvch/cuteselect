@@ -30,9 +30,10 @@ public:
         writer(atts.value(i));
       }
     } else if (localName == "image") {
-      const auto value = atts.value("file");
-      const auto path = pathResolver.resolve(value);
-      listener.addImage(path);
+      const auto file = atts.value("file");
+      const auto path = pathResolver.resolve(file);
+      const auto value = atts.value("value");
+      listener.addImage(path, value);
     }
     return true;
   }

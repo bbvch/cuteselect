@@ -85,10 +85,10 @@ TEST_F(ConfigurationLoaderImplementation_Test, load_the_height)
 
 TEST_F(ConfigurationLoaderImplementation_Test, loads_the_images)
 {
-  data.setData("<cuteselect><image id=\"first\" file=\"file1\" /></cuteselect>");
+  data.setData("<cuteselect><image value=\"first\" file=\"file1\" /></cuteselect>");
 
   EXPECT_CALL(pathResolver, resolve(QString{"file1"})).WillOnce(testing::Return(QString{"file2"}));
-  EXPECT_CALL(listener, addImage(QString{"file2"})).Times(1);
+  EXPECT_CALL(listener, addImage(QString{"file2"}, QString{"first"})).Times(1);
 
   testee.load(&data);
 }

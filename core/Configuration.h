@@ -24,7 +24,7 @@ public:
   void setBackgroundColor(QString value) override;
   void setRelativeWidth(double value) override;
   void setRelativeHeight(double value) override;
-  void addImage(QString filename) override;
+  void addImage(QString filename, QString value) override;
 
 public slots:
   void activate(int index);

@@ -9,9 +9,9 @@ Scenario: List items on the screen
   Given I have the following configuration file:
     """
     <cuteselect>
-      <image file="file1" />
-      <image file="/file2" />
-      <image file="file3" />
+      <image value="value 1"      file="file1"  />
+      <image value="second value" file="/file2" />
+      <image value="3"            file="file3"  />
     </cuteselect>
     """
   And the configuration file is stored at "/path"
@@ -28,28 +28,13 @@ Scenario: Select an item on the screen
   Given I have the following configuration file:
     """
     <cuteselect>
-      <image file="file1" />
-      <image file="file2" />
-      <image file="file3" />
+      <image value="value 1"      file="file 1" />
+      <image value="second value" file="file 2" />
+      <image value="3"            file="file 3" />
     </cuteselect>
     """
   And I start the application
 
   When I activate the item with the index 1 on the gui
 
-  Then I expect the application to quit with "/file2"
-
-Scenario: The files are relative to the configuration file
-  Given I have the following configuration file:
-    """
-    <cuteselect>
-      <image file="file" />
-    </cuteselect>
-    """
-  And the configuration file is stored at "/path"
-
-  When I start the application
-
-  Then I expect to see the following images in this order on the screen:
-    | filename   |
-    | /path/file |
+  Then I expect the application to quit with "second value"

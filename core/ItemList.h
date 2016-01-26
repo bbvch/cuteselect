@@ -11,11 +11,12 @@ class ItemList :
   Q_OBJECT
 
 public:
-  virtual void append(QString path) = 0;
+  virtual void append(QString path, QString value) = 0;
   virtual QVariant data(int row, int role) const = 0;
 
   enum ItemRole {
-    PathRole = Qt::UserRole
+    PathRole = Qt::UserRole,
+    ValueRole,
   };
 
 };

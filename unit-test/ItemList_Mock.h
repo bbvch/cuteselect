@@ -9,7 +9,7 @@ class ItemList_Mock :
     public ItemList
 {
 public:
-  MOCK_METHOD1(append, void(QString path));
+  MOCK_METHOD2(append, void(QString path, QString value));
 
   MOCK_CONST_METHOD1(rowCount, int(const QModelIndex & parent));
   MOCK_CONST_METHOD2(data, QVariant(const QModelIndex & index, int role));
