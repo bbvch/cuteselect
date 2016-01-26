@@ -2,6 +2,7 @@
 #include "FilePathResolver_Mock.h"
 
 #include <ConfigurationLoaderImplementation.h>
+#include <ImageItemImplementation.h>
 
 #include <gtest/gtest.h>
 
@@ -88,7 +89,8 @@ TEST_F(ConfigurationLoaderImplementation_Test, loads_the_images)
   data.setData("<cuteselect><image value=\"first\" file=\"file1\" /></cuteselect>");
 
   EXPECT_CALL(pathResolver, resolve(QString{"file1"})).WillOnce(testing::Return(QString{"file2"}));
-  EXPECT_CALL(listener, addImage(QString{"file2"}, QString{"first"})).Times(1);
+  ImageItemImplementation expectedImage{"file2", "first"};
+  EXPECT_CALL(listener, addImage(testing::Pointee(testing::Eq(expectedImage)))).Times(1);
 
   testee.load(&data);
 }

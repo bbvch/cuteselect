@@ -1,8 +1,16 @@
 #include "ItemListImplementation.h"
 
-void ItemListImplementation::append(QString path, QString value)
+ItemListImplementation::~ItemListImplementation()
 {
-  items.emplace_back(path, value);
+  for (const auto itr : items) {
+    delete itr;
+  }
+  items.clear();
+}
+
+void ItemListImplementation::append(ImageItem *item)
+{
+  items.push_back(item);
 }
 
 int ItemListImplementation::rowCount(const QModelIndex &) const
@@ -18,22 +26,15 @@ QVariant ItemListImplementation::data(const QModelIndex &index, int role) const
 QVariant ItemListImplementation::data(int row, int role) const
 {
   if (validIndex(row)) {
-    switch (role) {
-    case PathRole:
-      return items[row].path;
-    case ValueRole:
-      return items[row].value;
-    }
+    return items[row]->data(role);
+  } else {
+    return {};
   }
-
-  return {};
 }
 
 QHash<int, QByteArray> ItemListImplementation::roleNames() const
 {
-  QHash<int, QByteArray> names;
-  names[PathRole] = "path";
-  return names;
+  return ImageItem::roleNames();
 }
 
 bool ItemListImplementation::validIndex(int index) const

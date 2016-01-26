@@ -17,7 +17,9 @@ SOURCES += \
     Configuration.cpp \
     FilePathResolverImplementation.cpp \
     IostreamPrinter.cpp \
-    ItemListImplementation.cpp
+    ItemListImplementation.cpp \
+    ImageItemImplementation.cpp \
+    ImageItem.cpp
 
 HEADERS += \
     ConfigurationLoaderImplementation.h \
@@ -28,7 +30,9 @@ HEADERS += \
     FilePathResolver.h \
     IostreamPrinter.h \
     ItemListImplementation.h \
-    ItemList.h
+    ItemList.h \
+    ImageItemImplementation.h \
+    ImageItem.h
 
 unix {
     target.path = /usr/lib

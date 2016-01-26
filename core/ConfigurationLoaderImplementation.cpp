@@ -1,5 +1,7 @@
 #include "ConfigurationLoaderImplementation.h"
 
+#include <ImageItemImplementation.h>
+
 #include <QXmlSimpleReader>
 #include <QXmlDefaultHandler>
 #include <QMap>
@@ -33,7 +35,7 @@ public:
       const auto file = atts.value("file");
       const auto path = pathResolver.resolve(file);
       const auto value = atts.value("value");
-      listener.addImage(path, value);
+      listener.addImage(new ImageItemImplementation(path, value));
     }
     return true;
   }

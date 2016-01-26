@@ -41,7 +41,7 @@ THEN("^I expect to see the following images in this order on the screen:$")
   ASSERT_NE(nullptr, model);
   for (int idx = 0; idx < model->rowCount(); idx++) {
     const auto index = model->index(idx);
-    const auto path = index.data(ItemList::PathRole);
+    const auto path = index.data(ImageItem::PathRole);
     available.push_back(path.toString().toStdString());
   }
 

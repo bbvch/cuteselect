@@ -29,14 +29,14 @@ void Configuration::setRelativeHeight(double value)
   relativeHeightChanged();
 }
 
-void Configuration::addImage(QString filename, QString value)
+void Configuration::addImage(ImageItem *item)
 {
-  items->append(filename, value);
+  items->append(item);
 }
 
 void Configuration::activate(int index)
 {
-  const auto value = items->data(index, ItemList::ValueRole);
+  const auto value = items->data(index, ImageItem::ValueRole);
   if (value.isValid()) {
     quit(value.toString());
   }

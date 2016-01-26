@@ -28,10 +28,13 @@ SOURCES += \
     Configuration_Test.cpp \
     FilePathResolver_Test.cpp \
     IostreamPrinter_test.cpp \
-    ItemListImplementation_Test.cpp
+    ItemListImplementation_Test.cpp \
+    ImageItemImplementation_Test.cpp \
+    ImageItem_Test.cpp
 
 HEADERS += \
     ConfigurationLoader_Mock.h \
     ConfigurationListener_Mock.h \
     FilePathResolver_Mock.h \
-    ItemList_Mock.h
+    ItemList_Mock.h \
+    ImageItem_Mock.h

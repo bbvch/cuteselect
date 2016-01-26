@@ -1,6 +1,7 @@
 #include <Configuration.h>
 
 #include "ItemList_Mock.h"
+#include "ImageItem_Mock.h"
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
@@ -53,9 +54,10 @@ TEST_F(Configuration_Test, can_change_the_background_color)
 
 TEST_F(Configuration_Test, add_a_image_to_the_items)
 {
-  EXPECT_CALL(*items, append(QString{"the image path"}, QString{"the value"}));
+  testing::StrictMock<ImageItem_Mock> expectedImage;
+  EXPECT_CALL(*items, append(&expectedImage));
 
-  testee.addImage("the image path", "the value");
+  testee.addImage(&expectedImage);
 }
 
 TEST_F(Configuration_Test, the_default_width_is_defined)
@@ -86,7 +88,7 @@ TEST_F(Configuration_Test, can_write_the_height)
 
 TEST_F(Configuration_Test, quit_when_an_activate_is_received)
 {
-  EXPECT_CALL(*items, data(5, ItemList::ValueRole))
+  EXPECT_CALL(*items, data(5, ImageItem::ValueRole))
       .WillOnce(testing::Return(QVariant{"the value"}));
 
   testee.activate(5);
@@ -99,9 +101,9 @@ TEST_F(Configuration_Test, quit_when_an_activate_is_received)
 
 TEST_F(Configuration_Test, does_nothing_when_index_of_activate_is_invalid)
 {
-  EXPECT_CALL(*items, data(-1, ItemList::ValueRole))
+  EXPECT_CALL(*items, data(-1, ImageItem::ValueRole))
       .WillOnce(testing::Return(QVariant{}));
-  EXPECT_CALL(*items, data(1, ItemList::ValueRole))
+  EXPECT_CALL(*items, data(1, ImageItem::ValueRole))
       .WillOnce(testing::Return(QVariant{}));
 
   testee.activate(-1);
