@@ -1,8 +1,9 @@
-#-------------------------------------------------
 #
-# Project created by QtCreator 2016-01-20T13:28:19
+# (C) Copyright 2016
+# Urs Fässler, bbv Software Services, http://bbv.ch
 #
-#-------------------------------------------------
+# SPDX-License-Identifier:	GPL-3.0+
+#
 
 QT       -= gui
 QT += xml

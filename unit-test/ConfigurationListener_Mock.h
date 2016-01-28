@@ -1,3 +1,10 @@
+/*
+ * (C) Copyright 2016
+ * Urs Fässler, bbv Software Services, http://bbv.ch
+ *
+ * SPDX-License-Identifier:	GPL-3.0+
+ */
+
 #ifndef CONFIGURATIONLISTENER_MOCK_H
 #define CONFIGURATIONLISTENER_MOCK_H
 
