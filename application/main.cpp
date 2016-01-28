@@ -4,11 +4,10 @@
 #include <IostreamPrinter.h>
 #include <ItemListImplementation.h>
 
-
 #include <QGuiApplication>
-#include <QQmlApplicationEngine>
 #include <QCommandLineParser>
 #include <QQmlContext>
+#include <QQuickView>
 
 #include <QFile>
 
@@ -36,32 +35,32 @@ static QString getConfigFilename(const QStringList &arguments)
 int main(int argc, char *argv[])
 {
 
-    QGuiApplication app(argc, argv);
-    app.setApplicationName("cuteselect");
+  QGuiApplication app(argc, argv);
+  app.setApplicationName("cuteselect");
 
-    const auto configFilename = getConfigFilename(app.arguments());
-    QFile configFile{configFilename};
-    if (!configFile.open(QFile::ReadOnly)) {
-      std::cerr << "could not open file " << configFilename.toStdString() << std::endl;
-      return -1;
-    }
+  const auto configFilename = getConfigFilename(app.arguments());
+  QFile configFile{configFilename};
+  if (!configFile.open(QFile::ReadOnly)) {
+    std::cerr << "could not open file " << configFilename.toStdString() << std::endl;
+    return -1;
+  }
 
-    Configuration main{new ItemListImplementation()};
-    FilePathResolverImplementation pathResolver;
-    pathResolver.setBase(QFileInfo(configFilename).absolutePath());
-    ConfigurationLoaderImplementation configLoader{main, pathResolver};
+  Configuration main{new ItemListImplementation()};
+  FilePathResolverImplementation pathResolver;
+  pathResolver.setBase(QFileInfo(configFilename).absolutePath());
+  ConfigurationLoaderImplementation configLoader{main, pathResolver};
 
-    IostreamPrinter printer{std::cout};
-    QObject::connect(&main, SIGNAL(quit(QString)), &printer, SLOT(print(QString)));
-    QObject::connect(&main, SIGNAL(quit(QString)), &app, SLOT(quit()));
+  IostreamPrinter printer{std::cout};
+  QObject::connect(&main, SIGNAL(quit(QString)), &printer, SLOT(print(QString)));
+  QObject::connect(&main, SIGNAL(quit(QString)), &app, SLOT(quit()));
 
-    configLoader.load(&configFile);
+  configLoader.load(&configFile);
 
+  QQuickView view;
+  view.setResizeMode(QQuickView::SizeRootObjectToView);
+  view.rootContext()->setContextProperty("configuration", &main);
+  view.setSource(QUrl(QStringLiteral("qrc:/main.qml")));
+  view.showFullScreen();
 
-    QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("configuration", &main);
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
-
-    return app.exec();
+  return app.exec();
 }
