@@ -19,7 +19,6 @@ TEMPLATE = app
 TARGET = unit-test
 
 include(../core/core.pri)
-unit-test.depends = core
 
 LIBS += -lgmock_main
 LIBS += -lgmock -lpthread

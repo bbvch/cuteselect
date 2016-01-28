@@ -9,9 +9,22 @@ TEMPLATE = subdirs
 
 SUBDIRS = \
   core \
-  feature-test \
-  application \
+  application
+
+CONFIG(debug, debug|release) {
+  SUBDIRS += \
+    feature-test \
     unit-test
+}
+
+application.depends = \
+  core
+
+feature-test.depends = \
+  core
+
+unit-test.depends = \
+  core
 
 OTHER_FILES += \
     COPYING \

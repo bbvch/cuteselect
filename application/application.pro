@@ -10,8 +10,13 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
+TARGET = cuteselect
+unix {
+    target.path = /usr/bin/
+    INSTALLS += target
+}
+
 include(../core/core.pri)
-feature-test.depends = core
 
 SOURCES += main.cpp
 

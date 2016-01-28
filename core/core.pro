@@ -34,8 +34,3 @@ HEADERS += \
     ItemList.h \
     ImageItemImplementation.h \
     ImageItem.h
-
-unix {
-    target.path = /usr/lib
-    INSTALLS += target
-}

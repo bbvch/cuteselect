@@ -20,7 +20,6 @@ QT += testlib
 TARGET = feature-test
 
 include(../core/core.pri)
-feature-test.depends = core
 
 LIBS += -lgtest -lboost_regex -lboost_system -lcucumber-cpp
 
