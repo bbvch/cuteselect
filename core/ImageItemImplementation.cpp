@@ -19,18 +19,6 @@ ImageItemImplementation::ImageItemImplementation(QString path, QString value) :
 {
 }
 
-QVariant ImageItemImplementation::data(int role) const
-{
-  switch (role) {
-  case PathRole:
-    return _path;
-  case ValueRole:
-    return _value;
-  }
-
-  return {};
-}
-
 QString ImageItemImplementation::path() const
 {
   return _path;

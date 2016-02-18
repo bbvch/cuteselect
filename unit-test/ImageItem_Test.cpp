@@ -33,13 +33,4 @@ TEST(ImageItem_Test, can_compare_for_equality_when_not_equal)
   ASSERT_FALSE(*b == *c);
 }
 
-TEST(ImageItem_Test, retrieve_the_role_names)
-{
-  const auto names = ImageItem::roleNames();
-
-  ASSERT_EQ("path", names[ImageItem::PathRole]);
-  ASSERT_FALSE(names.contains(ImageItem::ValueRole));
-}
-
-
 }

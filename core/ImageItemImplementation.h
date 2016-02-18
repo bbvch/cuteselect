@@ -18,7 +18,6 @@ public:
 
   ImageItemImplementation(QString path, QString value);
 
-  QVariant data(int role) const override;
   QString path() const override;
   QString value() const override;
 

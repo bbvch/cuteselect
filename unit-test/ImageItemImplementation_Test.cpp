@@ -20,15 +20,10 @@ public:
   ImageItemImplementation testee{"the path", "the value"};
 };
 
-TEST_F(ImageItemImplementation_Test, get_values_by_roles)
+TEST_F(ImageItemImplementation_Test, get_values_by_methods)
 {
-  ASSERT_EQ("the path", testee.data(ImageItem::PathRole).toString().toStdString());
-  ASSERT_EQ("the value", testee.data(ImageItem::ValueRole).toString().toStdString());
-}
-
-TEST_F(ImageItemImplementation_Test, returns_nothing_for_invalid_role)
-{
-  ASSERT_FALSE(testee.data(-1).isValid());
+  ASSERT_EQ("the path", testee.path().toStdString());
+  ASSERT_EQ("the value", testee.value().toStdString());
 }
 
 TEST_F(ImageItemImplementation_Test, access_the_property_path)

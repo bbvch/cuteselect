@@ -21,16 +21,8 @@ class ImageItem :
   Q_PROPERTY(QString value READ value CONSTANT)
 
 public:
-  enum ImageItemRole {
-    PathRole = Qt::UserRole,
-    ValueRole
-  };
-
-  static QHash<int, QByteArray> roleNames();
-
   virtual ~ImageItem() = default;
 
-  virtual QVariant data(int role) const = 0;
   virtual QString path() const = 0;
   virtual QString value() const = 0;
 
