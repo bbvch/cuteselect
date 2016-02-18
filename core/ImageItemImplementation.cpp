@@ -7,6 +7,12 @@
 
 #include "ImageItemImplementation.h"
 
+ImageItemImplementation::ImageItemImplementation(const ImageItemImplementation &original) :
+  _path{original._path},
+  _value{original._value}
+{
+}
+
 ImageItemImplementation::ImageItemImplementation(QString path, QString value) :
   _path{path},
   _value{value}
@@ -23,4 +29,14 @@ QVariant ImageItemImplementation::data(int role) const
   }
 
   return {};
+}
+
+QString ImageItemImplementation::path() const
+{
+  return _path;
+}
+
+QString ImageItemImplementation::value() const
+{
+  return _value;
 }

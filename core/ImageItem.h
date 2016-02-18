@@ -12,8 +12,14 @@
 #include <QObject>
 #include <QVariant>
 
-class ImageItem
+class ImageItem :
+    public QObject
 {
+  Q_OBJECT
+
+  Q_PROPERTY(QString path READ path CONSTANT)
+  Q_PROPERTY(QString value READ value CONSTANT)
+
 public:
   enum ImageItemRole {
     PathRole = Qt::UserRole,
@@ -23,7 +29,10 @@ public:
   static QHash<int, QByteArray> roleNames();
 
   virtual ~ImageItem() = default;
+
   virtual QVariant data(int role) const = 0;
+  virtual QString path() const = 0;
+  virtual QString value() const = 0;
 
 };
 

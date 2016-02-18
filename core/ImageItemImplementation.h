@@ -14,10 +14,13 @@ class ImageItemImplementation :
     public ImageItem
 {
 public:
+  ImageItemImplementation(const ImageItemImplementation &original);
 
   ImageItemImplementation(QString path, QString value);
 
   QVariant data(int role) const override;
+  QString path() const override;
+  QString value() const override;
 
 private:
   const QString _path;
