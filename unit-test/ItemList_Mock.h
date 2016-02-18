@@ -23,6 +23,8 @@ public:
   MOCK_CONST_METHOD0(roleNames, QHash<int, QByteArray>());
   MOCK_CONST_METHOD2(data, QVariant(int row, int role));
 
+  MOCK_CONST_METHOD1(at, ImageItem*(int row));
+
 };
 
 #endif // ITEMLIST_MOCK_H

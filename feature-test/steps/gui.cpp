@@ -44,11 +44,10 @@ THEN("^I expect to see the following images in this order on the screen:$")
   cucumber::ScenarioScope<Context> context;
   QVariant items = context->configuration.property("items");
   ASSERT_TRUE(items.isValid());
-  ItemList *model = items.value<ItemList*>();
-  ASSERT_NE(nullptr, model);
-  for (int idx = 0; idx < model->rowCount(); idx++) {
-    const auto index = model->index(idx);
-    const auto path = index.data(ImageItem::PathRole);
+  QQmlListProperty<ImageItem> model = items.value<QQmlListProperty<ImageItem>>();
+  for (int idx = 0; idx < model.count(&model); idx++) {
+    const auto item = model.at(&model, idx);
+    const auto path = item->property("path");
     available.push_back(path.toString().toStdString());
   }
 

@@ -22,6 +22,7 @@ class ItemList :
 public:
   virtual void append(ImageItem* item) = 0;
   virtual QVariant data(int row, int role) const = 0;
+  virtual ImageItem *at(int row) const = 0;
 
 };
 

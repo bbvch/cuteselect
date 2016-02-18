@@ -26,6 +26,8 @@ public:
   QVariant data(int row, int role) const override;
   QHash<int, QByteArray> roleNames() const override;
 
+  ImageItem *at(int row) const override;
+
 private:
   std::vector<ImageItem*> items;
 

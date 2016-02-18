@@ -11,7 +11,9 @@
 #include "ConfigurationListener.h"
 #include "ItemList.h"
 
-#include <QAbstractListModel>
+#include <QtQml/QQmlListProperty>
+
+Q_DECLARE_METATYPE(QQmlListProperty<ImageItem>)
 
 class Configuration :
     public QObject,
@@ -22,7 +24,7 @@ class Configuration :
   Q_PROPERTY(QString backgroundColor MEMBER backgroundColor NOTIFY backgroundColorChanged)
   Q_PROPERTY(double relativeWidth MEMBER relativeWidth NOTIFY relativeWidthChanged)
   Q_PROPERTY(double relativeHeight MEMBER relativeHeight NOTIFY relativeHeightChanged)
-  Q_PROPERTY(ItemList* items MEMBER items CONSTANT)
+  Q_PROPERTY(QQmlListProperty<ImageItem> items READ getItems CONSTANT)
 
 public:
   Configuration(ItemList *items);
@@ -48,6 +50,9 @@ private:
   double relativeWidth{0.25};
   double relativeHeight{0.5};
   ItemList * const items;
+  QQmlListProperty<ImageItem> getItems();
+  static int itemsCount(QQmlListProperty<ImageItem> *list);
+  static ImageItem *itemsAt(QQmlListProperty<ImageItem> *list, int index);
 
 };
 

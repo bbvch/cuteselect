@@ -63,5 +63,13 @@ TEST_F(ItemListImplementation_Test, can_retrieve_data_by_QModelIndex)
   ASSERT_EQ("the image path", testee.data(index, ImageItem::PathRole));
 }
 
+TEST_F(ItemListImplementation_Test, can_direcltly_access_element)
+{
+  testing::StrictMock<ImageItem_Mock> *item = new testing::StrictMock<ImageItem_Mock>();
+  testee.append(item);
+
+  ASSERT_EQ(item, testee.at(0));
+}
+
 }
 

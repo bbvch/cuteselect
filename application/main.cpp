@@ -17,6 +17,7 @@
 #include <QQuickView>
 
 #include <QFile>
+#include <QtQml>
 
 #include <iostream>
 
@@ -51,6 +52,8 @@ int main(int argc, char *argv[])
     std::cerr << "could not open file " << configFilename.toStdString() << std::endl;
     return -1;
   }
+
+  qmlRegisterType<ImageItem>();
 
   Configuration main{new ItemListImplementation()};
   FilePathResolverImplementation pathResolver;

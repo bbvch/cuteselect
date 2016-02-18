@@ -44,6 +44,11 @@ QHash<int, QByteArray> ItemListImplementation::roleNames() const
   return ImageItem::roleNames();
 }
 
+ImageItem *ItemListImplementation::at(int row) const
+{
+  return items.at(row);
+}
+
 bool ItemListImplementation::validIndex(int index) const
 {
   return (0 <= index) && (index < items.size());

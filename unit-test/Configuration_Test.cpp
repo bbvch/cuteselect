@@ -59,6 +59,36 @@ TEST_F(Configuration_Test, can_change_the_background_color)
   ASSERT_EQ(1, backgroundSpy.count());
 }
 
+TEST_F(Configuration_Test, has_a_property_for_the_items)
+{
+  const QVariant itemsProperty = testee.property("items");
+
+  ASSERT_TRUE(itemsProperty.isValid());
+}
+
+TEST_F(Configuration_Test, read_the_size_of_the_items)
+{
+  EXPECT_CALL(*items, rowCount(testing::_))
+      .WillOnce(testing::Return(5));
+
+  const QVariant itemsProperty = testee.property("items");
+
+  QQmlListProperty<ImageItem> list = itemsProperty.value<QQmlListProperty<ImageItem>>();
+  ASSERT_EQ(5, list.count(&list));
+}
+
+TEST_F(Configuration_Test, access_an_element_of_the_items)
+{
+  testing::StrictMock<ImageItem_Mock> item;
+  EXPECT_CALL(*items, at(42))
+      .WillOnce(testing::Return(&item));
+
+  const QVariant itemsProperty = testee.property("items");
+
+  QQmlListProperty<ImageItem> list = itemsProperty.value<QQmlListProperty<ImageItem>>();
+  ASSERT_EQ(&item, list.at(&list, 42));
+}
+
 TEST_F(Configuration_Test, add_a_image_to_the_items)
 {
   testing::StrictMock<ImageItem_Mock> expectedImage;

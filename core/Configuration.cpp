@@ -10,7 +10,7 @@
 Configuration::Configuration(ItemList *aItems) :
   items{aItems}
 {
-  qRegisterMetaType<ItemList*>("ItemList*");
+  qRegisterMetaType<QQmlListProperty<ImageItem>>("QQmlListProperty<ImageItem>");
 }
 
 Configuration::~Configuration()
@@ -47,4 +47,21 @@ void Configuration::activate(int index)
   if (value.isValid()) {
     quit(value.toString());
   }
+}
+
+QQmlListProperty<ImageItem> Configuration::getItems()
+{
+  return QQmlListProperty<ImageItem>(this, items, itemsCount, itemsAt);
+}
+
+int Configuration::itemsCount(QQmlListProperty<ImageItem> *list)
+{
+  ItemList *items = static_cast<ItemList*>(list->data);
+  return items->rowCount();
+}
+
+ImageItem *Configuration::itemsAt(QQmlListProperty<ImageItem> *list, int index)
+{
+  ItemList *items = static_cast<ItemList*>(list->data);
+  return items->at(index);
 }
