@@ -20,36 +20,21 @@ void ItemListImplementation::append(ImageItem *item)
   items.push_back(item);
 }
 
-int ItemListImplementation::rowCount(const QModelIndex &) const
+size_t ItemListImplementation::count() const
 {
   return items.size();
 }
 
-QVariant ItemListImplementation::data(const QModelIndex &index, int role) const
+ImageItem *ItemListImplementation::at(size_t index) const
 {
-  return data(index.row(), role);
-}
-
-QVariant ItemListImplementation::data(int row, int role) const
-{
-  if (validIndex(row)) {
-    return items[row]->data(role);
+  if (validIndex(index)) {
+    return items[index];
   } else {
-    return {};
+    return nullptr;
   }
 }
 
-QHash<int, QByteArray> ItemListImplementation::roleNames() const
+bool ItemListImplementation::validIndex(size_t index) const
 {
-  return ImageItem::roleNames();
-}
-
-ImageItem *ItemListImplementation::at(int row) const
-{
-  return items.at(row);
-}
-
-bool ItemListImplementation::validIndex(int index) const
-{
-  return (0 <= index) && (index < items.size());
+  return index < items.size();
 }

@@ -18,12 +18,8 @@ class ItemList_Mock :
 public:
   MOCK_METHOD1(append, void(ImageItem* item));
 
-  MOCK_CONST_METHOD1(rowCount, int(const QModelIndex & parent));
-  MOCK_CONST_METHOD2(data, QVariant(const QModelIndex & index, int role));
-  MOCK_CONST_METHOD0(roleNames, QHash<int, QByteArray>());
-  MOCK_CONST_METHOD2(data, QVariant(int row, int role));
-
-  MOCK_CONST_METHOD1(at, ImageItem*(int row));
+  MOCK_CONST_METHOD0(count, size_t());
+  MOCK_CONST_METHOD1(at, ImageItem*(size_t row));
 
 };
 

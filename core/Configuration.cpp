@@ -43,9 +43,9 @@ void Configuration::addImage(ImageItem *item)
 
 void Configuration::activate(int index)
 {
-  const auto value = items->data(index, ImageItem::ValueRole);
-  if (value.isValid()) {
-    quit(value.toString());
+  const auto item = items->at(index);
+  if (item != nullptr) {
+    quit(item->value());
   }
 }
 
@@ -57,7 +57,7 @@ QQmlListProperty<ImageItem> Configuration::getItems()
 int Configuration::itemsCount(QQmlListProperty<ImageItem> *list)
 {
   ItemList *items = static_cast<ItemList*>(list->data);
-  return items->rowCount();
+  return items->count();
 }
 
 ImageItem *Configuration::itemsAt(QQmlListProperty<ImageItem> *list, int index)

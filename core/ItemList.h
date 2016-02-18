@@ -10,19 +10,14 @@
 
 #include "ImageItem.h"
 
-#include <QAbstractListModel>
-
-#include <vector>
-
-class ItemList :
-    public QAbstractListModel
+class ItemList
 {
-  Q_OBJECT
-
 public:
+  virtual ~ItemList() = default;
+
   virtual void append(ImageItem* item) = 0;
-  virtual QVariant data(int row, int role) const = 0;
-  virtual ImageItem *at(int row) const = 0;
+  virtual size_t count() const = 0;
+  virtual ImageItem *at(size_t index) const = 0;
 
 };
 

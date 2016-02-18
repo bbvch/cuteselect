@@ -32,6 +32,7 @@ public:
   }
 
 
+  testing::StrictMock<ImageItem_Mock> item;
   testing::StrictMock<ItemList_Mock> *items = new testing::StrictMock<ItemList_Mock>();
   Configuration testee{items};
   QSignalSpy backgroundSpy{&testee, SIGNAL(backgroundColorChanged())};
@@ -68,7 +69,7 @@ TEST_F(Configuration_Test, has_a_property_for_the_items)
 
 TEST_F(Configuration_Test, read_the_size_of_the_items)
 {
-  EXPECT_CALL(*items, rowCount(testing::_))
+  EXPECT_CALL(*items, count())
       .WillOnce(testing::Return(5));
 
   const QVariant itemsProperty = testee.property("items");
@@ -79,7 +80,6 @@ TEST_F(Configuration_Test, read_the_size_of_the_items)
 
 TEST_F(Configuration_Test, access_an_element_of_the_items)
 {
-  testing::StrictMock<ImageItem_Mock> item;
   EXPECT_CALL(*items, at(42))
       .WillOnce(testing::Return(&item));
 
@@ -125,8 +125,10 @@ TEST_F(Configuration_Test, can_write_the_height)
 
 TEST_F(Configuration_Test, quit_when_an_activate_is_received)
 {
-  EXPECT_CALL(*items, data(5, ImageItem::ValueRole))
-      .WillOnce(testing::Return(QVariant{"the value"}));
+  EXPECT_CALL(item, value())
+      .WillOnce(testing::Return("the value"));
+  EXPECT_CALL(*items, at(5))
+      .WillOnce(testing::Return(&item));
 
   testee.activate(5);
 
@@ -138,10 +140,10 @@ TEST_F(Configuration_Test, quit_when_an_activate_is_received)
 
 TEST_F(Configuration_Test, does_nothing_when_index_of_activate_is_invalid)
 {
-  EXPECT_CALL(*items, data(-1, ImageItem::ValueRole))
-      .WillOnce(testing::Return(QVariant{}));
-  EXPECT_CALL(*items, data(1, ImageItem::ValueRole))
-      .WillOnce(testing::Return(QVariant{}));
+  EXPECT_CALL(*items, at(-1))
+      .WillOnce(testing::Return(nullptr));
+  EXPECT_CALL(*items, at(1))
+      .WillOnce(testing::Return(nullptr));
 
   testee.activate(-1);
   testee.activate(1);
