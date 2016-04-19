@@ -40,7 +40,7 @@ Scenario: Use a default relative width for the items
 
   When I start the application
 
-  Then I expect the property relativeWidth to be "0.25"
+  Then I expect the property relativeWidth to be the number 0.25
 
 Scenario: Specify the relative width for the items
   Given I have the following configuration file:
@@ -50,7 +50,7 @@ Scenario: Specify the relative width for the items
 
   When I start the application
 
-  Then I expect the property relativeWidth to be "0.1234"
+  Then I expect the property relativeWidth to be the number 0.1234
 
 Scenario: Use a default relative height for the items
   Given I have the following configuration file:
@@ -60,7 +60,7 @@ Scenario: Use a default relative height for the items
 
   When I start the application
 
-  Then I expect the property relativeHeight to be "0.5"
+  Then I expect the property relativeHeight to be the number 0.5
 
 Scenario: Specify the relative height for the items
   Given I have the following configuration file:
@@ -70,5 +70,5 @@ Scenario: Specify the relative height for the items
 
   When I start the application
 
-  Then I expect the property relativeHeight to be "0.9876"
+  Then I expect the property relativeHeight to be the number 0.9876
 

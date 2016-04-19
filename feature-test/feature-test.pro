@@ -21,7 +21,7 @@ TARGET = feature-test
 
 include(../core/core.pri)
 
-LIBS += -lgtest -lboost_regex -lboost_system -lcucumber-cpp
+LIBS += -lgtest -lboost_regex -lboost_system -lboost_program_options -lcucumber-cpp
 
 SOURCES += \
     steps/configuration.cpp \

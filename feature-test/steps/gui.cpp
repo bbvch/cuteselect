@@ -29,6 +29,20 @@ THEN("^I expect the property (.+) to be \"([^\"]*)\"$")
   ASSERT_EQ(value, property.toString().toStdString());
 }
 
+THEN("^I expect the property (.+) to be the number (\\d+\\.\\d+)$")
+{
+  REGEX_PARAM(std::string, name);
+  REGEX_PARAM(double, value);
+
+  cucumber::ScenarioScope<Context> context;
+  const auto property = context->configuration.property(name.c_str());
+  ASSERT_TRUE(property.isValid());
+
+  bool ok;
+  ASSERT_EQ(value, property.toDouble(&ok));
+  ASSERT_TRUE(ok);
+}
+
 THEN("^I expect to see the following images in this order on the screen:$")
 {
   TABLE_PARAM(imageListTable);
