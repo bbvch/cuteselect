@@ -55,8 +55,9 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
 
+                clip: true
                 horizontalAlignment: Text.AlignHCenter
-                font.pointSize: 30
+                font.pixelSize: grid.cellHeight * configuration.relativeTextHeight
 
                 text: model.label
             }
