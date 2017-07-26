@@ -30,17 +30,37 @@ Rectangle {
 
     Component {
         id: gridDelegate
+
         Item {
             width: grid.cellWidth
             height: grid.cellHeight
+
             Image {
-                anchors.fill: parent
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: text.top
                 sourceSize.width: width
                 sourceSize.height: height
+
                 fillMode: Image.PreserveAspectFit
 
                 source: "file://" + model.path
             }
+
+            Text {
+                id: text
+
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: 30
+
+                text: model.label
+            }
+
             MouseArea {
                 anchors.fill: parent
                 onClicked: configuration.activate(index)
