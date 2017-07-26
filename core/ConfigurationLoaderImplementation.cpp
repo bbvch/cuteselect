@@ -33,6 +33,7 @@ public:
       attributeWriter["background-color"] = [this](QString value){ listener.setBackgroundColor(value); };
       attributeWriter["relative-width"] = [this](QString value){ listener.setRelativeWidth(value.toDouble()); };
       attributeWriter["relative-height"] = [this](QString value){ listener.setRelativeHeight(value.toDouble()); };
+      attributeWriter["relative-text-height"] = [this](QString value){ listener.setRelativeTextHeight(value.toDouble()); };
 
       for (int i = 0; i < atts.count(); i++) {
         const auto writer = attributeWriter.value(atts.localName(i), [](QString){});

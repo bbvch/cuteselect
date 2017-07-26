@@ -20,6 +20,7 @@ public:
   virtual void setBackgroundColor(QString value) = 0;
   virtual void setRelativeWidth(double value) = 0;
   virtual void setRelativeHeight(double value) = 0;
+  virtual void setRelativeTextHeight(double value) = 0;
   virtual void addImage(ImageItem *item) = 0;
 
 };

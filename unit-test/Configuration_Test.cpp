@@ -38,6 +38,7 @@ public:
   QSignalSpy backgroundSpy{&testee, SIGNAL(backgroundColorChanged())};
   QSignalSpy widthSpy{&testee, SIGNAL(relativeWidthChanged())};
   QSignalSpy heightSpy{&testee, SIGNAL(relativeHeightChanged())};
+  QSignalSpy textHeightSpy{&testee, SIGNAL(relativeTextHeightChanged())};
   QSignalSpy quitSpy{&testee, SIGNAL(quit(QString))};
 
 };
@@ -121,6 +122,19 @@ TEST_F(Configuration_Test, can_write_the_height)
 
   ASSERT_DOUBLE_EQ(0.6132, testee.property("relativeHeight").toDouble());
   ASSERT_EQ(1, heightSpy.count());
+}
+
+TEST_F(Configuration_Test, the_default_text_height_is_defined)
+{
+  ASSERT_DOUBLE_EQ(0.1, testee.property("relativeTextHeight").toDouble());
+}
+
+TEST_F(Configuration_Test, can_write_the_text_height)
+{
+  testee.setRelativeTextHeight(0.555);
+
+  ASSERT_DOUBLE_EQ(0.555, testee.property("relativeTextHeight").toDouble());
+  ASSERT_EQ(1, textHeightSpy.count());
 }
 
 TEST_F(Configuration_Test, quit_when_an_activate_is_received)

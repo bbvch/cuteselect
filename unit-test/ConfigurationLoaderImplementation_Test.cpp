@@ -91,6 +91,26 @@ TEST_F(ConfigurationLoaderImplementation_Test, load_the_height)
   testee.load(&data);
 }
 
+TEST_F(ConfigurationLoaderImplementation_Test, does_not_set_the_text_height_if_not_specified)
+{
+  data.setData("<cuteselect />");
+
+  EXPECT_CALL(listener, setRelativeTextHeight(testing::_))
+      .Times(0);
+
+  testee.load(&data);
+}
+
+TEST_F(ConfigurationLoaderImplementation_Test, load_the_text_height)
+{
+  data.setData("<cuteselect relative-text-height=\"0.67\" />");
+
+  EXPECT_CALL(listener, setRelativeTextHeight(0.67))
+      .Times(1);
+
+  testee.load(&data);
+}
+
 TEST_F(ConfigurationLoaderImplementation_Test, loads_the_images)
 {
   data.setData("<cuteselect><image value=\"first\" label=\"first label\" file=\"file1\" /></cuteselect>");

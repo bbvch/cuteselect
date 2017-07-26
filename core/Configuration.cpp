@@ -36,6 +36,12 @@ void Configuration::setRelativeHeight(double value)
   relativeHeightChanged();
 }
 
+void Configuration::setRelativeTextHeight(double value)
+{
+  relativeTextHeight = value;
+  relativeTextHeightChanged();
+}
+
 void Configuration::addImage(ImageItem *item)
 {
   items->append(item);

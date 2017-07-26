@@ -19,6 +19,7 @@ public:
   MOCK_METHOD1(setBackgroundColor, void(QString));
   MOCK_METHOD1(setRelativeWidth, void(double));
   MOCK_METHOD1(setRelativeHeight, void(double));
+  MOCK_METHOD1(setRelativeTextHeight, void(double));
   MOCK_METHOD1(addImage, void(ImageItem*));
 
 };

@@ -72,3 +72,23 @@ Scenario: Specify the relative height for the items
 
   Then I expect the property relativeHeight to be the number 0.9876
 
+Scenario: Use a default relative text height for the items
+  Given I have the following configuration file:
+    """
+    <cuteselect />
+    """
+
+  When I start the application
+
+  Then I expect the property relativeTextHeight to be the number 0.1
+
+Scenario: Specify the relative height for the items
+  Given I have the following configuration file:
+    """
+    <cuteselect relative-text-height="0.2" />
+    """
+
+  When I start the application
+
+  Then I expect the property relativeTextHeight to be the number 0.2
+
