@@ -93,10 +93,23 @@ TEST_F(ConfigurationLoaderImplementation_Test, load_the_height)
 
 TEST_F(ConfigurationLoaderImplementation_Test, loads_the_images)
 {
+  data.setData("<cuteselect><image value=\"first\" label=\"first label\" file=\"file1\" /></cuteselect>");
+  ImageItemImplementation expectedImage{"file2", "first label", "first"};
+
+  EXPECT_CALL(pathResolver, resolve(QString{"file1"}))
+      .WillOnce(testing::Return(QString{"file2"}));
+  EXPECT_CALL(listener, addImage(testing::Pointee(testing::Eq(expectedImage))))
+      .Times(1);
+
+  testee.load(&data);
+}
+
+TEST_F(ConfigurationLoaderImplementation_Test, loads_the_image_without_a_label)
+{
   data.setData("<cuteselect><image value=\"first\" file=\"file1\" /></cuteselect>");
 
   EXPECT_CALL(pathResolver, resolve(QString{"file1"})).WillOnce(testing::Return(QString{"file2"}));
-  ImageItemImplementation expectedImage{"file2", "first"};
+  ImageItemImplementation expectedImage{"file2", "", "first"};
   EXPECT_CALL(listener, addImage(testing::Pointee(testing::Eq(expectedImage)))).Times(1);
 
   testee.load(&data);

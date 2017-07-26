@@ -17,6 +17,7 @@ class ImageItem_Mock :
 {
 public:
   MOCK_CONST_METHOD0(path, QString());
+  MOCK_CONST_METHOD0(label, QString());
   MOCK_CONST_METHOD0(value, QString());
 
 };

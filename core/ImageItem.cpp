@@ -10,5 +10,6 @@
 bool operator ==(const ImageItem &left, const ImageItem &right)
 {
   return (left.path() == right.path()) &&
+      (left.label() == right.label()) &&
       (left.value() == right.value());
 }

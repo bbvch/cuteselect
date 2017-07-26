@@ -16,9 +16,9 @@ Scenario: List items on the screen
   Given I have the following configuration file:
     """
     <cuteselect>
-      <image value="value 1"      file="file1"  />
-      <image value="second value" file="/file2" />
-      <image value="3"            file="file3"  />
+      <image value="value 1"      label="Hello" file="file1"  />
+      <image value="second value" label="World" file="/file2" />
+      <image value="3"                          file="file3"  />
     </cuteselect>
     """
   And the configuration file is stored at "/path"
@@ -26,10 +26,10 @@ Scenario: List items on the screen
   When I start the application
 
   Then I expect to see the following images in this order on the screen:
-    | filename    |
-    | /path/file1 |
-    | /file2      |
-    | /path/file3 |
+    | path        | label |
+    | /path/file1 | Hello |
+    | /file2      | World |
+    | /path/file3 |       |
 
 Scenario: Select an item on the screen
   Given I have the following configuration file:

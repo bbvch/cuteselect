@@ -9,12 +9,14 @@
 
 ImageItemImplementation::ImageItemImplementation(const ImageItemImplementation &original) :
   _path{original._path},
+  _label{original._label},
   _value{original._value}
 {
 }
 
-ImageItemImplementation::ImageItemImplementation(QString path, QString value) :
+ImageItemImplementation::ImageItemImplementation(QString path, QString label, QString value) :
   _path{path},
+  _label{label},
   _value{value}
 {
 }
@@ -22,6 +24,11 @@ ImageItemImplementation::ImageItemImplementation(QString path, QString value) :
 QString ImageItemImplementation::path() const
 {
   return _path;
+}
+
+QString ImageItemImplementation::label() const
+{
+  return _label;
 }
 
 QString ImageItemImplementation::value() const

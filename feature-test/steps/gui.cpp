@@ -43,29 +43,31 @@ THEN("^I expect the property (.+) to be the number (\\d+\\.\\d+)$")
   ASSERT_TRUE(ok);
 }
 
+void assert_equal_value(const std::string &name, const cucumber::internal::Table::hash_row_type &expected, const ImageItem *actual)
+{
+  const auto expectedValue = expected.at(name);
+  const auto actualValue = actual->property(name.c_str());
+
+  ASSERT_EQ(expectedValue, actualValue.toString().toStdString());
+}
+
 THEN("^I expect to see the following images in this order on the screen:$")
 {
   TABLE_PARAM(imageListTable);
   const table_hashes_type& imageList = imageListTable.hashes();
 
-  std::vector<std::string> expected;
-  for (const auto & entry : imageList) {
-    const auto filename = entry.at("filename");
-    expected.push_back(filename);
-  }
-
-  std::vector<std::string> available;
   cucumber::ScenarioScope<Context> context;
   QVariant items = context->configuration.property("items");
   ASSERT_TRUE(items.isValid());
   QQmlListProperty<ImageItem> model = items.value<QQmlListProperty<ImageItem>>();
-  for (int idx = 0; idx < model.count(&model); idx++) {
-    const auto item = model.at(&model, idx);
-    const auto path = item->property("path");
-    available.push_back(path.toString().toStdString());
-  }
 
-  ASSERT_EQ(expected, available);
+  for (std::size_t i = 0; i < imageList.size(); i++) {
+    const auto &entry = imageList.at(i);
+    const auto item = model.at(&model, i);
+
+    assert_equal_value("path", entry, item);
+    assert_equal_value("label", entry, item);
+  }
 }
 
 WHEN("^I activate the item with the index (\\d+) on the gui$")

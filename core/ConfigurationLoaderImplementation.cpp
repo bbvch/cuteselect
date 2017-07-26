@@ -26,7 +26,7 @@ public:
   {
   }
 
-  bool startElement(const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& atts) override
+  bool startElement(const QString&, const QString& localName, const QString&, const QXmlAttributes& atts) override
   {
     if (localName == "cuteselect") {
       QMap<QString,std::function<void(QString)>> attributeWriter;
@@ -40,9 +40,10 @@ public:
       }
     } else if (localName == "image") {
       const auto file = atts.value("file");
+      const auto label = atts.value("label");
       const auto path = pathResolver.resolve(file);
       const auto value = atts.value("value");
-      listener.addImage(new ImageItemImplementation(path, value));
+      listener.addImage(new ImageItemImplementation(path, label, value));
     }
     return true;
   }

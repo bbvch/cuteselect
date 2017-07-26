@@ -16,13 +16,15 @@ class ImageItemImplementation :
 public:
   ImageItemImplementation(const ImageItemImplementation &original);
 
-  ImageItemImplementation(QString path, QString value);
+  ImageItemImplementation(QString path, QString label, QString value);
 
   QString path() const override;
+  QString label() const override;
   QString value() const override;
 
 private:
   const QString _path;
+  const QString _label;
   const QString _value;
 
 

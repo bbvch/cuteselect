@@ -18,12 +18,14 @@ class ImageItem :
   Q_OBJECT
 
   Q_PROPERTY(QString path READ path CONSTANT)
+  Q_PROPERTY(QString label READ label CONSTANT)
   Q_PROPERTY(QString value READ value CONSTANT)
 
 public:
   virtual ~ImageItem() = default;
 
   virtual QString path() const = 0;
+  virtual QString label() const = 0;
   virtual QString value() const = 0;
 
 };
